@@ -1,4 +1,4 @@
-
+// js/tiposPokemons.js
   const tiposPokemons = {
     fuego: "fire",
     agua: "water",

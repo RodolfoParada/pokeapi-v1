@@ -1,3 +1,4 @@
+//js/filtrarPokemon.js
 import tiposPokemons from "./tiposPokemons.js";
 
 /**

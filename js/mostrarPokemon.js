@@ -1,4 +1,4 @@
-
+// js/mostrarPokemon.js
 export function mostrarPokemon(lista){
 
     const contenedor = document.getElementById("pokedex");
