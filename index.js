@@ -7,7 +7,7 @@ async function cargarPokedex() {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limite}`);
         const data = await res.json();
 
-        // 2. Por cada Pokémon en la lista, pedimos sus detalles (foto, etc.)
+        // 2. Por cada Pokémon en la lista, pedimos sus detalles (foto, etc....) 
         const promesas = data.results.map(pokemon => fetch(pokemon.url).then(r => r.json()));
         const listaPokemon = await Promise.all(promesas);
 
