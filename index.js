@@ -25,6 +25,9 @@ const traduccionTipos = {
 };
 
 
+let paginaActual = 1;
+const pokemonsPorPagina = 20;
+
 async function cargarPokedex() {
     const contenedor = document.getElementById("pokedex");
     const limite = 1000; // Puedes cambiarlo a 151 para la primera generación
@@ -43,7 +46,8 @@ async function cargarPokedex() {
         todosLosPokemon = listaPokemon;
 
         // 3. Dibujamos todos en el HTML
-         mostrarPokemon(listaPokemon)
+       // mostrarPokemon(listaPokemon)
+        mostrarPagina(listaPokemon)
 
     } catch (error) {
         console.error("Error cargando la Pokedex:", error);
@@ -70,11 +74,6 @@ function mostrarPokemon(lista){
 
 document.getElementById("buscador").addEventListener("input", e => {
    const valor = e.target.value.toLowerCase().trim();
-
-   // buscar en inglés o español el tipo del pokemon
-//    if(traduccionTipos[valor]){
-//     valor = traduccionTipos[valor];
-//    }
  
 const valorTraducido = traduccionTipos[valor] || valor;
 
@@ -100,3 +99,40 @@ const valorTraducido = traduccionTipos[valor] || valor;
    mostrarPokemon(filtrados)
 
 })
+
+
+function obtenerPaginacion(lista, pagina){
+      const inicio = (pagina - 1 ) * pokemonsPorPagina;
+      const fin = inicio +pokemonsPorPagina;
+      return lista.slice(inicio, fin);
+}
+
+function mostrarPagina(lista){
+      const pagina = obtenerPaginacion(lista, paginaActual);
+      mostrarPokemon(pagina);
+      mostrarControles(lista.length);
+}
+
+function mostrarControles(totalPokemon){
+    const contenedor = document.getElementById("paginacion");
+    const totalPaginas = Math.ceil(totalPokemon / pokemonsPorPagina);
+
+    contenedor.innerHTML = `
+      <button onclick="cambiarPagina(-1)" ${paginaActual === 1 ? "disabled" : ""}>
+        <- Anterior
+      </button>
+
+      <span style="margin: 0 10px;">
+         Página ${paginaActual} de ${totalPaginas}
+      </span>
+
+      <button onclick="cambiarPagina(1)" ${paginaActual === totalPaginas ? "disabled" : ""}>
+        Siguiente ->
+      </button>
+    `
+}
+
+function cambiarPagina(direccion) {
+    paginaActual += direccion;
+    mostrarPagina(todosLosPokemon);
+}
