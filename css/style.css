@@ -47,6 +47,32 @@
 }
 
 
+/* Animación de pulso para el Skeleton */
+.skeleton-shimmer {
+    animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #e0e0e0;
+        opacity: 0.6;
+    }
+    50% {
+        background-color: #f5f5f5;
+        opacity: 1;
+    }
+    100% {
+        background-color: #e0e0e0;
+        opacity: 0.6;
+    }
+}
+
+/* Opcional: un ligero efecto de escala para la tarjeta */
+.skeleton-card {
+    pointer-events: none; /* Evita que el usuario haga clic mientras carga */
+}
+
+
 /* Responsividad: Si la pantalla es pequeña, bajamos a 5 o 2 columnas */
 @media (max-width: 1200px) {
     #pokedex { grid-template-columns: repeat(5, 1fr); }
