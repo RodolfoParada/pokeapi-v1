@@ -26,6 +26,19 @@
     animation: aparecer 0.4s forwards;
 }
 
+/* mostrarPokemon.js */
+.pulse {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* ----------------- */
+
+
 @keyframes aparecer {
     to {
         opacity: 1;
@@ -41,3 +54,6 @@
 @media (max-width: 600px) {
     #pokedex { grid-template-columns: repeat(2, 1fr); }
 }
+
+
+
