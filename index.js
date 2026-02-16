@@ -49,7 +49,7 @@ async function iniciarCargaPokemon() {
         console.error("Fallo total de carga:", error);
         const pokedexContenedor = document.getElementById("pokedex");
         if (pokedexContenedor) {
-            pokedexContenedor.innerHTML = `<p>Error al conectar con el servidor.</p>`;
+            pokedexContenedor.innerHTML = `<p>Estamos conectando con el Centro Pokémon para traer toda la información. Por favor, espera un momento mientras completamos la descarga.</p>`;
         }
     }
 }
