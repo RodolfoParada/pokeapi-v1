@@ -1,0 +1,29 @@
+/* Colores por defecto (Modo Claro) */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #f9f9f9;
+    --nav-bg: #ef5350; /* Rojo Pokemon */
+}
+
+/* Colores para Modo Oscuro */
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --card-bg: #2d2d2d;
+    --nav-bg: #b71c1c;
+}
+
+/* Aplicar las variables */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    font-family: sans-serif;
+}
+
+.poke-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid #444; /* Un borde sutil */
+}

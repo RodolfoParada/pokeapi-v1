@@ -3,16 +3,18 @@
 import { saveState, getState } from "./localStore.js";
 
 // Usamos tu propia función getState para recuperar la sesión
-const persistencia = getState('pokeAppState');
+const persistencia = JSON.parse(localStorage.getItem('pokeAppState'));
 
 export const state = {
     datosMaestros: [],
     paginaActual: persistencia?.paginaActual || 1,
-    vistaActual: persistencia?.vistaActual || 'home'
+    vistaActual: persistencia?.vistaActual || 'home',
+    modoOscuro: persistencia?.modoOscuro || false
 };
 
 export function guardarEstado() {
     const { paginaActual, vistaActual } = state;
     // Usamos tu propia función saveState
     saveState('pokeAppState', { paginaActual, vistaActual });
+    localStorage.setItem('pokeAppState', JSON.stringify(state));
 }
