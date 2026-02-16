@@ -1,3 +1,5 @@
+import { saveState, getState } from "./localStore.js";
+
 export function mostrarPokemon(lista) {
     const contenedor = document.getElementById("pokedex");
     if (!contenedor) return;
@@ -19,4 +21,18 @@ export function mostrarPokemon(lista) {
         contenedor.innerHTML = html;
         contenedor.style.opacity = "1";
     }, 50); // 50ms es imperceptible pero suficiente para el navegador
+}
+
+
+export function toggleFavorito(id) {
+    let favoritos = getState('poke_favs') || [];
+    
+    if (favoritos.includes(id)) {
+        favoritos = favoritos.filter(favId => favId !== id);
+    } else {
+        favoritos.push(id);
+    }
+    
+    saveState('poke_favs', favoritos);
+    console.log("Favoritos actualizados:", favoritos);
 }

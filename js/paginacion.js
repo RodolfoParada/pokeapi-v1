@@ -1,16 +1,24 @@
-let paginaActual = 1;
+// paginación.js
+import { state, guardarEstado } from "./state.js"; // IMPORTANTE: Agregamos guardarEstado
+
+// Inicializamos con el valor del estado para que persista al recargar
+let paginaActual = state.paginaActual || 1; 
 const pokemonsPorPagina = 50;
 
 export function manejarPaginacion(listaCompleta, funcionParaDibujar, worker) {
     
+    // Configuramos la escucha del worker
     worker.onmessage = (e) => {
-        // Cuando llegan los datos, los dibujamos de inmediato
+        // e.data contiene la lista de 50 pokemons procesada por el worker
         funcionParaDibujar(e.data);
         actualizarBotones(listaCompleta.length);
     };
 
     const pedirDatos = () => {
-        // Pedimos la página actual
+        // Sincronizamos el estado global antes de guardar
+        state.paginaActual = paginaActual; 
+        guardarEstado(); 
+        
         worker.postMessage({
             paginaActual: paginaActual,
             itemsPorPagina: pokemonsPorPagina
@@ -20,6 +28,7 @@ export function manejarPaginacion(listaCompleta, funcionParaDibujar, worker) {
     function actualizarBotones(total) {
         const contenedor = document.getElementById("paginacion");
         if (!contenedor) return;
+        
         const totalPaginas = Math.ceil(total / pokemonsPorPagina);
 
         contenedor.innerHTML = `
@@ -29,14 +38,20 @@ export function manejarPaginacion(listaCompleta, funcionParaDibujar, worker) {
         `;
 
         document.getElementById("prev").onclick = () => { 
-            paginaActual--; 
-            pedirDatos(); 
+            if (paginaActual > 1) {
+                paginaActual--; 
+                pedirDatos(); 
+            }
         };
+        
         document.getElementById("next").onclick = () => { 
-            paginaActual++; 
-            pedirDatos(); 
+            if (paginaActual < totalPaginas) {
+                paginaActual++; 
+                pedirDatos(); 
+            }
         };
     }
 
+    // Carga inicial al entrar a la vista
     pedirDatos();
 }

@@ -2,12 +2,16 @@ import { cargarPokedex } from "./js/cargarPokemon.js";
 import { mostrarPokemon } from "./js/mostrarPokemon.js";
 import { manejarPaginacion } from "./js/paginacion.js";
 import { inicializarBuscador } from "./js/filtrarPokemon.js";
+import { guardarEstado, state } from "./js/state.js";
+import { renderPokedexLayout } from "./views/pokedex.js"; // Importamos tu layout
 
 const mainContent = document.getElementById("main-content");
-let datosMaestros = [];
-const worker = new Worker('./js/pokemonWorker.js');
+// Cambié la ruta a raíz si el worker está fuera de js, o mantenla si está dentro
+const worker = new Worker('./js/pokemonWorker.js'); 
 
 async function navegar(ruta) {
+    state.vistaActual = ruta; 
+    guardarEstado()
     mainContent.innerHTML = ""; 
 
     if (ruta === "home") {
@@ -18,27 +22,28 @@ async function navegar(ruta) {
             </div>`;
         document.getElementById("btn-explorar").onclick = () => navegar("pokedex");
     } 
-    
     else if (ruta === "pokedex") {
-        mainContent.innerHTML = `
-            <input type="text" id="buscador" placeholder="Buscar por nombre, id o tipo..." style="padding:8px; width:250px; margin-bottom:20px;">
-            <div id="pokedex" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;"></div>
-            <div id="paginacion" style="margin-top:20px; text-align: center;"></div>`;
-        
-        if (datosMaestros.length === 0) {
-            datosMaestros = await cargarPokedex();
-            worker.postMessage({ tipo: 'GUARDAR_LISTA', lista: datosMaestros });
+        // CORRECCIÓN: Usamos el layout, no mostrarPokemon
+        mainContent.innerHTML = renderPokedexLayout(); 
+
+       if (!state.datosMaestros || state.datosMaestros.length === 0) {
+    state.datosMaestros = await cargarPokedex();
+    
+    // Verificamos que cargarPokedex realmente devolvió algo
+    if (state.datosMaestros && state.datosMaestros.length > 0) {
+        worker.postMessage({ tipo: 'GUARDAR_LISTA', lista: state.datosMaestros });
+    }
         }
         
-        // Iniciamos pasándole el worker
-        manejarPaginacion(datosMaestros, mostrarPokemon, worker);
+        // Usamos state.datosMaestros para que no vaya vacío
+        manejarPaginacion(state.datosMaestros, mostrarPokemon, worker);
         
-        inicializarBuscador(datosMaestros, (listaFiltrada) => {
-            if (listaFiltrada.length !== datosMaestros.length) {
+        inicializarBuscador(state.datosMaestros, (listaFiltrada) => {
+            if (listaFiltrada.length !== state.datosMaestros.length) {
                 mostrarPokemon(listaFiltrada);
                 document.getElementById("paginacion").innerHTML = "";
             } else {
-                manejarPaginacion(datosMaestros, mostrarPokemon, worker);
+                manejarPaginacion(state.datosMaestros, mostrarPokemon, worker);
             }
         });
     }
@@ -47,4 +52,4 @@ async function navegar(ruta) {
 document.getElementById("nav-home").onclick = (e) => { e.preventDefault(); navegar("home"); };
 document.getElementById("nav-pokedex").onclick = (e) => { e.preventDefault(); navegar("pokedex"); };
 
-navegar("home");
+navegar("state.vistaActual");
