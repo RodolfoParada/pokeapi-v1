@@ -105,6 +105,46 @@ window.verDetalle = async (id) => {
     }
 };
 
+// index.js
+
+// Función para aplicar el tema visualmente
+function aplicarTema() {
+    const btnDark = document.getElementById("btn-dark");
+    
+    if (state.modoOscuro) {
+        // MODO OSCURO ACTIVO
+        document.body.classList.add('dark-mode');
+        if (btnDark) {
+            btnDark.innerHTML = "☀️"; // Mostramos el Sol para volver a la luz
+            btnDark.title = "Cambiar a modo claro";
+        }
+    } else {
+        // MODO CLARO ACTIVO
+        document.body.classList.remove('dark-mode');
+        if (btnDark) {
+            btnDark.innerHTML = "🌙"; // Mostramos la Luna para ir a la sombra
+            btnDark.title = "Cambiar a modo oscuro";
+        }
+    }
+}
+
+// Agregamos el listener al botón (asumiendo que tienes un id="btn-dark")
+const btnDark = document.getElementById("btn-dark");
+if (btnDark) {
+    btnDark.onclick = () => {
+        state.modoOscuro = !state.modoOscuro; // Cambiamos el booleano
+        aplicarTema(); // Cambiamos el CSS
+        guardarEstado(); // Guardamos en localStorage
+    };
+}
+
+// Al arrancar la App, aplicamos el tema guardado
+aplicarTema();
+
+
+
+
+
 // --- GLOBALES Y LISTENERS ---
 window.navegar = navegar;
 document.getElementById("nav-home").onclick = (e) => { e.preventDefault(); navegar("home"); };
