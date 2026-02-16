@@ -1,6 +1,10 @@
 /* Mantiene el espacio para que la página no "salte" */
 #pokedex {
-    min-height: 600px; 
+    display: grid;
+    /* Crea 10 columnas de igual tamaño (1fr) */
+    grid-template-columns: repeat(10, 1fr);
+    max-width: 1400px; /* Ajusta según el ancho de tu pantalla */
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -13,7 +17,8 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;
-    width: 120px;
+    width: 100px;
+    max-width: 120px;
     text-align: center;
     background: #f9f9f9;
     opacity: 0;
@@ -26,4 +31,13 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* Responsividad: Si la pantalla es pequeña, bajamos a 5 o 2 columnas */
+@media (max-width: 1200px) {
+    #pokedex { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 600px) {
+    #pokedex { grid-template-columns: repeat(2, 1fr); }
 }
