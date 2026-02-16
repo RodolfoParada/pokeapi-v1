@@ -7,6 +7,7 @@ export function mostrarPokemon(lista) {
         <div class="poke-card">
             <img src="${p.sprites.front_default}" alt="${p.name}" width="80" height="80">
             <h3 style="font-size: 14px; margin: 5px 0; text-transform: capitalize;">${p.name}</h3>
+            <h3 style="font-size: 14px; margin: 5px 0;">tipo : ${p.types[0].type.name}</h3>
             <span style="font-size: 10px; color: #777;">ID: ${p.id}</span>
         </div>
     `).join('');
