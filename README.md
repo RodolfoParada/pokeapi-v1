@@ -1,4 +1,4 @@
-# 🚀 Pokeapi-v1 — Pokedex de Alto
+# Pokeapi-v1 — Pokedex de Alto
 
 **Pokeapi-v1** es una Single Page Application (SPA) desarrollada con **JavaScript Vanilla (ES6 Modules)** que ofrece una experiencia rápida, fluida y moderna para explorar el mundo Pokémon.
 
@@ -160,7 +160,7 @@ Permite:
 
 ---
 
-## 📥 Instalación y Uso
+### Instalación y Uso
 
 ### 1️⃣ Clonar repositorio
 ```bash
