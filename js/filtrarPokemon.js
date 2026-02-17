@@ -7,6 +7,7 @@ import tiposPokemons from "./tiposPokemons.js";
  */
 export function inicializarBuscador(lista, callbackMostrar) {
     const buscador = document.getElementById("buscador");
+    const contenedor = document.getElementById("pokedex");
     if (!buscador) return;
 
     buscador.addEventListener("input", e => {
@@ -15,6 +16,7 @@ export function inicializarBuscador(lista, callbackMostrar) {
 
         // Si no hay valor, volvemos a mostrar la lista original (o la página inicial)
         if (!valor) {
+            contenedor.classList.remove("enfocado");
             callbackMostrar(lista);
             return;
         }
@@ -34,6 +36,12 @@ export function inicializarBuscador(lista, callbackMostrar) {
 
             return porNombre || porId || porTipo;
         });
+        // LÓGICA DE CENTRADO:
+        if (filtrados.length === 1) {
+            contenedor.classList.add("enfocado");
+        } else {
+            contenedor.classList.remove("enfocado");
+        }
 
         callbackMostrar(filtrados);
     });

@@ -60,10 +60,16 @@ export function mostrarPokemon(lista, cargando = false) {
                     style="position: absolute; top: 5px; right: 5px; background: none; border: none; cursor: pointer; font-size: 1.5rem; z-index: 10;"
                 >
                 </button>
-
-                <img src="${p.sprites.front_default}" alt="${p.name}" width="80" height="80">
+              <img 
+                src="${p.sprites?.other?.['official-artwork']?.front_default || p.sprites?.front_default || 'ruta/a/una/imagen/por/defecto.png'}" 
+                alt="${p.name}" 
+                style="width: 100%;"
+                >
                 <h3 style="text-transform: capitalize; font-size: 1rem; margin: 10px 0 5px;">${p.name}</h3>
                 <h3 style="font-size: 14px; margin: 5px 0;">"tipo :"${p.types[0].type.name}</h3>
+                <div class="tipos">
+                ${p.types.map(t => `<span class="tipo-${t.type.name}">${t.type.name}</span>`).join('')}
+            </div>
                 <span style="color: #666; font-size: 0.8rem;">ID: ${p.id}</span><br>
                 <button>ver más</button>
             </div>

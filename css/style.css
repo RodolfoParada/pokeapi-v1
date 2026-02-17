@@ -86,6 +86,22 @@
     animation: aparecer 0.4s forwards;
 }
 
+/* Cuando el contenedor tiene la clase 'enfocado', centramos el contenido */
+#pokedex.enfocado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Le damos altura para que se note el centrado */
+}
+
+/* Hacemos que la carta sea más grande cuando es la única */
+#pokedex.enfocado .poke-card {
+    transform: scale(1.5); /* Aumenta el tamaño un 50% */
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border: 2px solid #ef5350; /* Un borde color Pokémon */
+}
+
 /* --- RESPONSIVIDAD --- */
 
 /* Pantallas medianas (Laptops) */
