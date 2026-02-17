@@ -1,3 +1,4 @@
+//js/detallePokemon
 export function renderDetallePokemon(p) {
     // 1. Extraemos las imágenes adicionales (sprites)
     const imagenes = [
