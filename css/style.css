@@ -5,10 +5,10 @@
     grid-template-columns: repeat(10, 1fr);
     max-width: 1400px; /* Ajusta según el ancho de tu pantalla */
     margin: 0 auto;
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
+    /* justify-content: center; */
     transition: opacity 0.3s ease;
 }
 
@@ -39,14 +39,6 @@
 /* ----------------- */
 
 
-@keyframes aparecer {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 /* Animación de pulso para el Skeleton */
 .skeleton-shimmer {
     animation: skeleton-loading 1.5s infinite ease-in-out;
@@ -72,14 +64,58 @@
     pointer-events: none; /* Evita que el usuario haga clic mientras carga */
 }
 
+/* Mantiene el espacio y define el sistema de rejilla */
+#pokedex {
+    display: grid;
+    /* Por defecto en pantallas grandes: 10 columnas */
+    grid-template-columns: repeat(10, 1fr); 
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    transition: opacity 0.3s ease;
+}
 
-/* Responsividad: Si la pantalla es pequeña, bajamos a 5 o 2 columnas */
+/* Tarjetas Pokémon */
+.poke-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    /* Eliminamos el width fijo para que Grid lo controle */
+    text-align: center;
+    background: #f9f9f9;
+    animation: aparecer 0.4s forwards;
+}
+
+/* --- RESPONSIVIDAD --- */
+
+/* Pantallas medianas (Laptops) */
 @media (max-width: 1200px) {
-    #pokedex { grid-template-columns: repeat(5, 1fr); }
+    #pokedex {
+        grid-template-columns: repeat(5, 1fr); 
+    }
 }
+
+/* Pantallas de tablets */
+@media (max-width: 900px) {
+    #pokedex {
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+/* Pantallas de celulares */
 @media (max-width: 600px) {
-    #pokedex { grid-template-columns: repeat(2, 1fr); }
+    #pokedex {
+        grid-template-columns: repeat(3, 1fr); /* 2 columnas en móvil es mejor para la visibilidad */
+        gap: 10px; /* Reducimos el espacio para ganar lugar */
+        padding: 10px;
+    }
 }
 
 
 
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
