@@ -1,3 +1,4 @@
+// pokedex.js
 export function renderPokedexLayout() {
     return `
         <div style="padding: 20px; text-align: center;">

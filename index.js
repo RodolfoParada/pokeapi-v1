@@ -1,3 +1,5 @@
+//index.js
+
 // 1. ÚNICOS IMPORTS (Asegúrate de que las rutas coincidan con tus carpetas)
 import { cargarPokedex } from "./js/cargarPokemon.js";
 import { mostrarPokemon } from "./js/mostrarPokemon.js";
@@ -105,7 +107,6 @@ window.verDetalle = async (id) => {
     }
 };
 
-// index.js
 
 // Función para aplicar el tema visualmente
 function aplicarTema() {

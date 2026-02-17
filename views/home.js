@@ -1,3 +1,5 @@
+//home.js
+
 export function renderHome() {
     return `
         <div style="text-align: center; padding: 50px;">
